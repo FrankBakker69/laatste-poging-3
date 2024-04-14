@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentLevel = 1;
     let obstacleDirection = 1; // Richting van beweging: 1 (rechts) of -1 (links)
     let obstacleSpeed = 3; // Snelheid van het obstakel
-    let isBallColliding = false; // Botsingsstatus van de bal met het obstakel
 
     // Functie om een willekeurige positie binnen het game-container te krijgen
     function getRandomPosition() {
@@ -65,24 +64,19 @@ document.addEventListener("DOMContentLoaded", function() {
         obstacleLeft += obstacleDirection * obstacleSpeed;
         obstacle.style.left = obstacleLeft + 'px';
 
-        // Controleer of de bal het obstakel raakt
+        // Controleer voor botsing tussen bal en obstakel
         if (checkCollision(ball, obstacle)) {
-            isBallColliding = true;
-            showLossMessage(); // Toon verliesmelding
-        } else {
-            isBallColliding = false;
+            showLossMessage(); // Toon verliesmelding bij botsing
         }
 
-        // Blijf het obstakel periodiek verplaatsen, tenzij de bal botst
-        if (!isBallColliding) {
-            requestAnimationFrame(moveObstacle);
-        }
+        // Blijf het obstakel periodiek verplaatsen
+        requestAnimationFrame(moveObstacle);
     }
 
     // Start het bewegen van het obstakel
     moveObstacle();
 
-    // Toon verliesmelding
+    // Toon verliesmelding bij botsing tussen bal en obstakel
     function showLossMessage() {
         alert('Helaas! Je hebt verloren. Probeer het opnieuw.');
         currentLevel = 1; // Reset naar level 1 bij verlies
@@ -97,8 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Voeg event listener toe voor balbeweging
     document.addEventListener('keydown', function(event) {
-        if (isBallColliding) return; // Stop balbeweging als er een botsing is
-
         const key = event.key;
         const ballStyle = getComputedStyle(ball);
         let ballLeft = parseInt(ballStyle.left);

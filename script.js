@@ -121,19 +121,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Controleer of de bal de rand van het game-container raakt
-    function isOutOfBounds(ball) {
-        const ballRect = ball.getBoundingClientRect();
-        const containerRect = gameContainer.getBoundingClientRect();
-
-        return (
-            ballRect.top < containerRect.top ||
-            ballRect.bottom > containerRect.bottom ||
-            ballRect.left < containerRect.left ||
-            ballRect.right > containerRect.right
-        );
-    }
-
     // Controleer of er een botsing is tussen de bal en het doel/obstakel
     function checkCollision(ball, target) {
         const ballRect = ball.getBoundingClientRect();

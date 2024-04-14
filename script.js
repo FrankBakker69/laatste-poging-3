@@ -119,14 +119,6 @@ document.addEventListener("DOMContentLoaded", function() {
             updateLevelDisplay(); // Werk het niveau-display bij
             placeElementsRandomly(); // Plaats elementen opnieuw voor een nieuw spel
         }
-
-        // Controleer verliesvoorwaarde (bal raakt de rand van het game-container)
-        if (isOutOfBounds(ball)) {
-            alert('Helaas! Je hebt verloren. Probeer het opnieuw.');
-            currentLevel = 1; // Reset naar level 1 bij verlies
-            updateLevelDisplay(); // Werk het niveau-display bij
-            placeElementsRandomly(); // Plaats elementen opnieuw voor een nieuw spel
-        }
     });
 
     // Controleer of de bal de rand van het game-container raakt

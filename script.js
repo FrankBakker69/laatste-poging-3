@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentLevel = 1;
     let obstacleDirection = 1; // Richting van beweging: 1 (rechts) of -1 (links)
     let obstacleSpeed = 3; // Snelheid van het obstakel
+    let isBallColliding = false; // Botsingsstatus van de bal met het obstakel
 
     // Functie om een willekeurige positie binnen het game-container te krijgen
     function getRandomPosition() {
@@ -64,8 +65,17 @@ document.addEventListener("DOMContentLoaded", function() {
         obstacleLeft += obstacleDirection * obstacleSpeed;
         obstacle.style.left = obstacleLeft + 'px';
 
-        // Blijf het obstakel periodiek verplaatsen
-        requestAnimationFrame(moveObstacle);
+        // Controleer of de bal het obstakel raakt
+        if (checkCollision(ball, obstacle)) {
+            isBallColliding = true;
+        } else {
+            isBallColliding = false;
+        }
+
+        // Blijf het obstakel periodiek verplaatsen, tenzij de bal botst
+        if (!isBallColliding) {
+            requestAnimationFrame(moveObstacle);
+        }
     }
 
     // Start het bewegen van het obstakel
@@ -78,6 +88,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Voeg event listener toe voor balbeweging
     document.addEventListener('keydown', function(event) {
+        if (isBallColliding) return; // Stop balbeweging als er een botsing is
+
         const key = event.key;
         const ballStyle = getComputedStyle(ball);
         let ballLeft = parseInt(ballStyle.left);

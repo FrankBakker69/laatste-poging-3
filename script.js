@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Controleer of de bal het obstakel raakt
         if (checkCollision(ball, obstacle)) {
             isBallColliding = true;
+            showLossMessage(); // Toon verliesmelding
         } else {
             isBallColliding = false;
         }
@@ -80,6 +81,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Start het bewegen van het obstakel
     moveObstacle();
+
+    // Toon verliesmelding
+    function showLossMessage() {
+        alert('Helaas! Je hebt verloren. Probeer het opnieuw.');
+        currentLevel = 1; // Reset naar level 1 bij verlies
+        updateLevelDisplay(); // Werk het niveau-display bij
+        placeElementsRandomly(); // Plaats elementen opnieuw voor een nieuw spel
+    }
 
     // Update het niveau-display met het huidige niveau
     function updateLevelDisplay() {
@@ -126,10 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Controleer verliesvoorwaarde (bal raakt het obstakel)
         if (checkCollision(ball, obstacle)) {
-            alert('Helaas! Je hebt verloren. Probeer het opnieuw.');
-            currentLevel = 1; // Reset naar level 1 bij verlies
-            updateLevelDisplay(); // Werk het niveau-display bij
-            placeElementsRandomly(); // Plaats elementen opnieuw voor een nieuw spel
+            showLossMessage(); // Toon verliesmelding
         }
     });
 

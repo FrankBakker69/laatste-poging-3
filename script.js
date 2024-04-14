@@ -112,6 +112,14 @@ document.addEventListener("DOMContentLoaded", function() {
             placeElementsRandomly(); // Plaats elementen opnieuw voor het volgende level
         }
 
+        // Controleer verliesvoorwaarde (bal raakt het obstakel)
+        if (checkCollision(ball, obstacle)) {
+            alert('Helaas! Je hebt verloren. Probeer het opnieuw.');
+            currentLevel = 1; // Reset naar level 1 bij verlies
+            updateLevelDisplay(); // Werk het niveau-display bij
+            placeElementsRandomly(); // Plaats elementen opnieuw voor een nieuw spel
+        }
+
         // Controleer verliesvoorwaarde (bal raakt de rand van het game-container)
         if (isOutOfBounds(ball)) {
             alert('Helaas! Je hebt verloren. Probeer het opnieuw.');
@@ -134,14 +142,14 @@ document.addEventListener("DOMContentLoaded", function() {
         );
     }
 
-    // Controleer of er een botsing is tussen de bal en het doel
-    function checkCollision(ball, goal) {
+    // Controleer of er een botsing is tussen de bal en het doel/obstakel
+    function checkCollision(ball, target) {
         const ballRect = ball.getBoundingClientRect();
-        const goalRect = goal.getBoundingClientRect();
-        return !(ballRect.right < goalRect.left ||
-                 ballRect.left > goalRect.right ||
-                 ballRect.bottom < goalRect.top ||
-                 ballRect.top > goalRect.bottom);
+        const targetRect = target.getBoundingClientRect();
+        return !(ballRect.right < targetRect.left ||
+                 ballRect.left > targetRect.right ||
+                 ballRect.bottom < targetRect.top ||
+                 ballRect.top > targetRect.bottom);
     }
 
     // Initialiseer het niveau-display

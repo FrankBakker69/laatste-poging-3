@@ -66,7 +66,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Controleer voor botsing tussen bal en obstakel
         if (checkCollision(ball, obstacle)) {
-            showLossMessage(); // Toon verliesmelding bij botsing
+            const ballRect = ball.getBoundingClientRect();
+            const obstacleRect = obstacle.getBoundingClientRect();
+
+            // Controleer of de bal de zijkant van het obstakel raakt
+            if (ballRect.right >= obstacleRect.left && ballRect.left <= obstacleRect.right) {
+                showLossMessage(); // Toon verliesmelding bij botsing
+            }
         }
 
         // Blijf het obstakel periodiek verplaatsen
@@ -127,7 +133,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Controleer verliesvoorwaarde (bal raakt het obstakel)
         if (checkCollision(ball, obstacle)) {
-            showLossMessage(); // Toon verliesmelding
+            const ballRect = ball.getBoundingClientRect();
+            const obstacleRect = obstacle.getBoundingClientRect();
+
+            // Controleer of de bal de zijkant van het obstakel raakt
+            if (ballRect.right >= obstacleRect.left && ballRect.left <= obstacleRect.right) {
+                showLossMessage(); // Toon verliesmelding
+            }
         }
     });
 
